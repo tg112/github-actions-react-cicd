@@ -22,12 +22,23 @@ jobs:
           node-version: "16.x"
       - run: npm ci
       - run: npm run format:check
-      - run: npm run test
+      - run: npm run test -- --coverage
         env:
           CI: true
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: code-coverage
+          path: coverage
       - name: Build Project
         if: github.event_name == 'push'
         run: npm run build
+      - name: Upload build coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
+      - uses: actions/download-artifact
       - name: Deploy to staging
         if: github.event_name == 'push'
         run: npx surge --project ./build --domain selective-surprise.surge.sh
