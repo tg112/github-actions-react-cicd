@@ -1,5 +1,5 @@
 module.exports = {
-  branches: "master",
+  branches: "main",
   repositoryUrl: "https://github.com/tg112/github-actions-react-cicd",
   plugins: [
     "@semantic-release/commit-analyzer",
